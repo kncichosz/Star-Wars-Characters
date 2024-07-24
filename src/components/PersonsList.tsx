@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import PersonInformation from './PersonInformation'
 
 interface Person {
     name: string;
@@ -14,6 +15,7 @@ interface Person {
 export default function PersonsList(){
 
     const [persons, setPersons] = useState<Person[]>([]);
+    const [indexOfPerson, setIndexOfPerson] = useState<number>(0);
     
     async function getPersons() {
         const res = await fetch("https://swapi.dev/api/people/");
@@ -22,24 +24,41 @@ export default function PersonsList(){
         setPersons(data.results);
     }
 
+    function changeThePerson(index: number){
+        setIndexOfPerson(index);
+    }
+
     useEffect(function () { getPersons(); }, []);
 
     //console.log("persons = " + persons);
 
-    return(<div>
+    return (
+        <div>
+            <table>
+                {persons.map((person, index) => (
+                    <tr key={index}>
+                        <th>{index})</th>
+                        <td onClick={() => changeThePerson(index)}>{person.name}</td>
+                    </tr>
+                ))}
+            </table>
+    
+           
 
-    {persons.map((person) => (
-        <ul>
-            <li>Name: {person.name}</li>
-            <li>Height: {person.height}</li>
-            <li>Mass: {person.mass}</li>
-            <li>Hair color: {person.hair_color}</li>
-            <li>Skin color: {person.skin_color}</li>
-            <li>Eye color: {person.eye_color}</li>
-            <li>Birth year: {person.birth_year}</li>
-            <li>Gender: {person.gender}</li>
-        </ul>
-    ))}
-
-    </div>);
+            {persons[indexOfPerson] && (
+                <PersonInformation
+                    name={persons[indexOfPerson].name}
+                    height={persons[indexOfPerson].height}
+                    mass={persons[indexOfPerson].mass}
+                    hair_color={persons[indexOfPerson].hair_color}
+                    skin_color={persons[indexOfPerson].skin_color}
+                    eye_color={persons[indexOfPerson].eye_color}
+                    birth_year={persons[indexOfPerson].birth_year}
+                    gender={persons[indexOfPerson].gender}
+                />
+            )}
+            
+        </div>
+    );
+    
 }
