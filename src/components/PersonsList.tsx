@@ -1,16 +1,6 @@
 import { useEffect, useState } from "react";
 import PersonInformation from './PersonInformation'
-
-interface Person {
-    name: string;
-    height: string;
-    mass: string;
-    hair_color: string;
-    skin_color: string;
-    eye_color: string;
-    birth_year: string;
-    gender: string;
-}
+import Person from './Person'
 
 export default function PersonsList(){
 
@@ -42,8 +32,6 @@ export default function PersonsList(){
                     </tr>
                 ))}
             </table>
-    
-           
 
             {persons[indexOfPerson] && (
                 <PersonInformation
@@ -55,6 +43,7 @@ export default function PersonsList(){
                     eye_color={persons[indexOfPerson].eye_color}
                     birth_year={persons[indexOfPerson].birth_year}
                     gender={persons[indexOfPerson].gender}
+                    films={persons[indexOfPerson].films}
                 />
             )}
             
