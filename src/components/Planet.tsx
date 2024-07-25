@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-function Planet({link}: {link:string}){
+const Planet = ({link}: {link:string}) => {
     
     const [planetName, setPlanetName] = useState<string | null>(null);
 

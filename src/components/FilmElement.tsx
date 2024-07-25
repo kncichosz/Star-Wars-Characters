@@ -7,7 +7,7 @@ interface Film{
     release_date: string;
 }
 
-function FilmElement({ link }: {link:string}) {
+const FilmElement = ({ link }: {link:string}) => {
 
     const [film, setFilm] = useState<Film | null>(null);
 
