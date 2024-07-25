@@ -14,7 +14,7 @@ function FilmElement({ link }: {link:string}) {
     async function getFilms() {
         const res = await fetch(link);
         const data = await res.json();
-        console.log(data.title);
+        //console.log(data.title);
         setFilm(data);
     }
 

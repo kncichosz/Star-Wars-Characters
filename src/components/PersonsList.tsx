@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import PersonInformation from './PersonInformation'
-import Person from './Person'
+import PersonInformation from './PersonInformation';
+import Person from './Person';
 
 export default function PersonsList(){
 
     const [persons, setPersons] = useState<Person[]>([]);
+    const [personName, setPersonName] = useState<string>('');
     const [indexOfPerson, setIndexOfPerson] = useState<number>(0);
     
     async function getPersons() {
@@ -18,12 +19,25 @@ export default function PersonsList(){
         setIndexOfPerson(index);
     }
 
+    function findThePerson(){
+        const index = persons.findIndex(person => person.name === personName);
+        if (index !== -1) {
+            setIndexOfPerson(index);
+        } else {
+            console.log("Person not found.");
+        }
+    }
+
     useEffect(function () { getPersons(); }, []);
 
     //console.log("persons = " + persons);
 
     return (
         <div>
+
+            <input type="text" value={personName} onChange={(e) => setPersonName(e.target.value)} ></input>
+            <button onClick={findThePerson} >Search</button>
+
             <table>
                 {persons.map((person, index) => (
                     <tr key={index}>
@@ -36,6 +50,7 @@ export default function PersonsList(){
             {persons[indexOfPerson] && (
                 <PersonInformation
                     name={persons[indexOfPerson].name}
+                    homeworld={persons[indexOfPerson].homeworld}
                     height={persons[indexOfPerson].height}
                     mass={persons[indexOfPerson].mass}
                     hair_color={persons[indexOfPerson].hair_color}
@@ -50,4 +65,4 @@ export default function PersonsList(){
         </div>
     );
     
-}
+} 

@@ -1,5 +1,6 @@
 interface Person {
     name: string;
+    homeworld: string;
     height: string;
     mass: string;
     hair_color: string;
